@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TrabajoCerca</title>
+  <title>TrabajoCerca - Encuentra trabajo cerca de ti</title>
 
   <style>
     * {
@@ -14,12 +14,12 @@
     }
 
     body {
-      background: #f4f6f8;
+      background: #f5f7fa;
       color: #222;
     }
 
     header {
-      background: #0b7a4b;
+      background: #0d6efd;
       color: white;
       padding: 25px 20px;
       text-align: center;
@@ -30,185 +30,211 @@
       margin-bottom: 8px;
     }
 
-    .container {
-      max-width: 700px;
-      margin: 25px auto;
-      padding: 0 15px;
+    header p {
+      font-size: 16px;
     }
 
-    .search {
+    .buscador {
       background: white;
+      max-width: 900px;
+      margin: 25px auto;
       padding: 20px;
       border-radius: 15px;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-      margin-bottom: 25px;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.08);
     }
 
-    .search h2 {
+    .buscador h2 {
       margin-bottom: 15px;
+    }
+
+    .fila {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    input, select, button {
+      padding: 13px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
     }
 
     input, select {
-      width: 100%;
-      padding: 13px;
-      margin-bottom: 12px;
-      border: 1px solid #ddd;
-      border-radius: 9px;
-      font-size: 15px;
+      flex: 1;
+      min-width: 180px;
     }
 
     button {
-      width: 100%;
-      padding: 14px;
-      background: #0b7a4b;
+      background: #0d6efd;
       color: white;
       border: none;
-      border-radius: 9px;
-      font-size: 16px;
       cursor: pointer;
+      font-weight: bold;
     }
 
     button:hover {
-      background: #09643e;
+      background: #0b5ed7;
     }
 
-    .job {
+    .ofertas {
+      max-width: 900px;
+      margin: 25px auto;
+      padding: 0 20px;
+    }
+
+    .oferta {
       background: white;
       padding: 20px;
-      border-radius: 15px;
       margin-bottom: 15px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
     }
 
-    .job h3 {
-      margin-bottom: 8px;
+    .oferta h3 {
+      color: #0d6efd;
+      margin-bottom: 10px;
     }
 
-    .job p {
+    .oferta p {
       margin: 6px 0;
-      color: #555;
     }
 
-    .badge {
+    .contactar {
       display: inline-block;
-      background: #e4f5ed;
-      color: #0b7a4b;
-      padding: 5px 9px;
-      border-radius: 20px;
-      font-size: 13px;
-      margin-top: 8px;
+      margin-top: 12px;
+      padding: 10px 15px;
+      background: #198754;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
     }
 
-    #mensaje {
+    .publicar {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 25px 20px;
+      background: #fff3cd;
+      border-radius: 15px;
       text-align: center;
-      margin: 20px 0;
-      color: #666;
+    }
+
+    .publicar h2 {
+      margin-bottom: 10px;
+    }
+
+    footer {
+      margin-top: 40px;
+      padding: 25px;
+      background: #212529;
+      color: white;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 27px;
+      }
+
+      .fila {
+        flex-direction: column;
+      }
+
+      input, select, button {
+        width: 100%;
+      }
     }
   </style>
 </head>
 
 <body>
 
-<header>
-  <h1>TrabajoCerca</h1>
-  <p>Encuentra trabajo cerca de ti</p>
-</header>
+  <header>
+    <h1>💼 TrabajoCerca</h1>
+    <p>Encuentra trabajo cerca de ti</p>
+  </header>
 
-<div class="container">
-
-  <div class="search">
+  <section class="buscador">
     <h2>🔎 Buscar trabajo</h2>
 
-    <input id="trabajo" type="text" placeholder="¿Qué trabajo buscas?">
+    <div class="fila">
+      <input type="text" id="trabajo" placeholder="Ej: albañil, camarero...">
 
-    <input id="localidad" type="text" placeholder="📍 Localidad">
+      <input type="text" id="ubicacion" placeholder="Ej: Lorca, Murcia...">
 
-    <select id="sector">
-      <option value="">Todos los sectores</option>
-      <option value="agricultura">Agricultura</option>
-      <option value="almacén">Almacén</option>
-      <option value="construcción">Construcción</option>
-      <option value="hostelería">Hostelería</option>
-      <option value="limpieza">Limpieza</option>
-    </select>
+      <button onclick="buscarTrabajo()">Buscar</button>
+    </div>
+  </section>
 
-    <button onclick="buscarOfertas()">Buscar ofertas</button>
-  </div>
+  <section class="ofertas">
 
-  <h2>Últimas ofertas</h2>
-
-  <br>
-
-  <div id="ofertas">
-
-    <div class="job" data-trabajo="trabajador agrícola" data-localidad="lorca murcia" data-sector="agricultura">
-      <h3>👨‍🌾 Trabajador agrícola</h3>
+    <div class="oferta">
+      <h3>👷 Peón agrícola</h3>
       <p>📍 Lorca, Murcia</p>
-      <p>💰 8,50 €/hora</p>
-      <p>🕐 Jornada completa</p>
-      <span class="badge">Agricultura</span>
+      <p>💰 8 - 10 €/hora</p>
+      <p>Se busca trabajador para tareas agrícolas.</p>
+
+      <a class="contactar" href="tel:+34600000000">
+        📞 Contactar
+      </a>
     </div>
 
-    <div class="job" data-trabajo="mozo de almacén" data-localidad="puerto lumbreras murcia" data-sector="almacén">
-      <h3>📦 Mozo de almacén</h3>
+    <div class="oferta">
+      <h3>🍽️ Camarero/a</h3>
       <p>📍 Puerto Lumbreras, Murcia</p>
-      <p>💰 1.300 €/mes</p>
-      <p>🕐 Jornada completa</p>
-      <span class="badge">Almacén</span>
+      <p>💰 1.300 - 1.600 €/mes</p>
+      <p>Se busca camarero/a para restaurante.</p>
+
+      <a class="contactar" href="tel:+34600000000">
+        📞 Contactar
+      </a>
     </div>
 
-  </div>
+    <div class="oferta">
+      <h3>🔨 Albañil</h3>
+      <p>📍 Águilas, Murcia</p>
+      <p>💰 Según experiencia</p>
+      <p>Se busca albañil con experiencia.</p>
 
-  <p id="mensaje"></p>
+      <a class="contactar" href="tel:+34600000000">
+        📞 Contactar
+      </a>
+    </div>
 
-</div>
+  </section>
 
-<script>
+  <section class="publicar">
+    <h2>📢 ¿Buscas trabajadores?</h2>
+    <p>Publica tu oferta y encuentra trabajadores cerca.</p>
+    <br>
+    <button onclick="alert('Próximamente podrás publicar ofertas de trabajo.')">
+      Publicar oferta
+    </button>
+  </section>
 
-function buscarOfertas() {
+  <footer>
+    <p>© 2026 TrabajoCerca</p>
+    <p>Encuentra trabajo. Encuentra trabajadores.</p>
+  </footer>
 
-  const trabajo = document.getElementById("trabajo").value.toLowerCase().trim();
-  const localidad = document.getElementById("localidad").value.toLowerCase().trim();
-  const sector = document.getElementById("sector").value.toLowerCase();
+  <script>
+    function buscarTrabajo() {
+      const trabajo = document.getElementById("trabajo").value.toLowerCase();
+      const ubicacion = document.getElementById("ubicacion").value.toLowerCase();
 
-  const ofertas = document.querySelectorAll(".job");
+      const ofertas = document.querySelectorAll(".oferta");
 
-  let encontradas = 0;
+      ofertas.forEach(oferta => {
+        const texto = oferta.innerText.toLowerCase();
 
-  ofertas.forEach(function(oferta) {
-
-    const textoTrabajo = oferta.dataset.trabajo;
-    const textoLocalidad = oferta.dataset.localidad;
-    const textoSector = oferta.dataset.sector;
-
-    const coincideTrabajo =
-      trabajo === "" || textoTrabajo.includes(trabajo);
-
-    const coincideLocalidad =
-      localidad === "" || textoLocalidad.includes(localidad);
-
-    const coincideSector =
-      sector === "" || textoSector === sector;
-
-    if (coincideTrabajo && coincideLocalidad && coincideSector) {
-      oferta.style.display = "block";
-      encontradas++;
-    } else {
-      oferta.style.display = "none";
+        if (texto.includes(trabajo) && texto.includes(ubicacion)) {
+          oferta.style.display = "block";
+        } else {
+          oferta.style.display = "none";
+        }
+      });
     }
-
-  });
-
-  const mensaje = document.getElementById("mensaje");
-
-  if (encontradas === 0) {
-    mensaje.textContent = "❌ No hemos encontrado ofertas con esos filtros.";
-  } else {
-    mensaje.textContent = "✅ " + encontradas + " oferta(s) encontrada(s).";
-  }
-}
-
-</script>
+  </script>
 
 </body>
 </html>
