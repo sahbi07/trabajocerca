@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>TrabajoCerca - Encuentra trabajo cerca de ti</title>
 
   <style>
@@ -14,134 +15,146 @@
     }
 
     body {
-      background: #f5f7fa;
+      background: #f4f6f8;
       color: #222;
     }
 
     header {
       background: #0d6efd;
       color: white;
-      padding: 25px 20px;
       text-align: center;
+      padding: 30px 15px;
     }
 
     header h1 {
-      font-size: 32px;
+      font-size: 34px;
       margin-bottom: 8px;
     }
 
     header p {
-      font-size: 16px;
+      font-size: 17px;
     }
 
-    .buscador {
-      background: white;
+    .contenedor {
+      width: 92%;
       max-width: 900px;
       margin: 25px auto;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 3px 15px rgba(0,0,0,0.08);
     }
 
-    .buscador h2 {
+    .caja {
+      background: white;
+      padding: 22px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    }
+
+    h2 {
       margin-bottom: 15px;
     }
 
-    .fila {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    input, select, button {
+    input,
+    textarea {
+      width: 100%;
       padding: 13px;
+      margin-bottom: 12px;
       border: 1px solid #ddd;
       border-radius: 8px;
       font-size: 16px;
     }
 
-    input, select {
-      flex: 1;
-      min-width: 180px;
+    textarea {
+      min-height: 100px;
+      resize: vertical;
     }
 
     button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
       background: #0d6efd;
       color: white;
-      border: none;
-      cursor: pointer;
+      font-size: 17px;
       font-weight: bold;
+      cursor: pointer;
     }
 
     button:hover {
       background: #0b5ed7;
     }
 
-    .ofertas {
-      max-width: 900px;
-      margin: 25px auto;
-      padding: 0 20px;
+    .boton-verde {
+      background: #198754;
+    }
+
+    .boton-verde:hover {
+      background: #157347;
     }
 
     .oferta {
       background: white;
       padding: 20px;
+      border-radius: 13px;
       margin-bottom: 15px;
-      border-radius: 12px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.07);
     }
 
     .oferta h3 {
       color: #0d6efd;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      font-size: 21px;
     }
 
     .oferta p {
-      margin: 6px 0;
+      margin: 7px 0;
     }
 
     .contactar {
       display: inline-block;
       margin-top: 12px;
-      padding: 10px 15px;
+      padding: 11px 16px;
       background: #198754;
       color: white;
       text-decoration: none;
       border-radius: 8px;
+      font-weight: bold;
     }
 
-    .publicar {
-      max-width: 900px;
-      margin: 30px auto;
-      padding: 25px 20px;
-      background: #fff3cd;
-      border-radius: 15px;
+    .borrar {
+      margin-top: 10px;
+      background: #dc3545;
+    }
+
+    .borrar:hover {
+      background: #bb2d3b;
+    }
+
+    #mensaje {
+      margin-top: 12px;
+      font-weight: bold;
       text-align: center;
     }
 
-    .publicar h2 {
-      margin-bottom: 10px;
+    .sin-ofertas {
+      text-align: center;
+      padding: 25px;
+      color: #666;
     }
 
     footer {
-      margin-top: 40px;
-      padding: 25px;
       background: #212529;
       color: white;
       text-align: center;
+      padding: 25px;
+      margin-top: 40px;
     }
 
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 27px;
-      }
-
-      .fila {
-        flex-direction: column;
-      }
-
-      input, select, button {
-        width: 100%;
+    @media (min-width: 700px) {
+      .dos-columnas {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
       }
     }
   </style>
@@ -149,170 +162,466 @@
 
 <body>
 
-  <header>
-    <h1>💼 TrabajoCerca</h1>
-    <p>Encuentra trabajo cerca de ti</p>
-  </header>
+<header>
+  <h1>💼 TrabajoCerca</h1>
+  <p>Encuentra trabajo cerca de ti</p>
+</header>
 
-  <section class="buscador">
+
+<div class="contenedor">
+
+  <!-- BUSCADOR -->
+
+  <div class="caja">
+
     <h2>🔎 Buscar trabajo</h2>
 
-    <div class="fila">
-      <input type="text" id="trabajo" placeholder="Ej: albañil, camarero...">
+    <input
+      type="text"
+      id="buscarPuesto"
+      placeholder="¿Qué trabajo buscas? Ej: camarero"
+    >
 
-      <input type="text" id="ubicacion" placeholder="Ej: Lorca, Murcia...">
+    <input
+      type="text"
+      id="buscarCiudad"
+      placeholder="📍 Ciudad. Ej: Lorca"
+    >
 
-      <button onclick="buscarTrabajo()">Buscar</button>
-    </div>
-  </section>
-
-  <section class="ofertas">
-
-    <div class="oferta">
-      <h3>👷 Peón agrícola</h3>
-      <p>📍 Lorca, Murcia</p>
-      <p>💰 8 - 10 €/hora</p>
-      <p>Se busca trabajador para tareas agrícolas.</p>
-
-      <a class="contactar" href="tel:+34600000000">
-        📞 Contactar
-      </a>
-    </div>
-
-    <div class="oferta">
-      <h3>🍽️ Camarero/a</h3>
-      <p>📍 Puerto Lumbreras, Murcia</p>
-      <p>💰 1.300 - 1.600 €/mes</p>
-      <p>Se busca camarero/a para restaurante.</p>
-
-      <a class="contactar" href="tel:+34600000000">
-        📞 Contactar
-      </a>
-    </div>
-
-    <div class="oferta">
-      <h3>🔨 Albañil</h3>
-      <p>📍 Águilas, Murcia</p>
-      <p>💰 Según experiencia</p>
-      <p>Se busca albañil con experiencia.</p>
-
-      <a class="contactar" href="tel:+34600000000">
-        📞 Contactar
-      </a>
-    </div>
-
-  </section>
-
-  <section class="publicar">
-  <h2>📢 Publicar oferta de trabajo</h2>
-  <p>¿Buscas trabajadores? Publica tu oferta gratis.</p>
-
-  <br>
-
-  <input type="text" id="empresa" placeholder="Nombre de la empresa">
-
-  <br><br>
-
-  <input type="text" id="puesto" placeholder="Puesto (ej: Camarero)">
-
-  <br><br>
-
-  <input type="text" id="ciudad" placeholder="Ciudad">
-
-  <br><br>
-
-  <input type="text" id="salario" placeholder="Salario">
-
-  <br><br>
-
-  <textarea id="descripcion" placeholder="Describe el trabajo"
-    style="width:100%; padding:13px; border:1px solid #ddd; border-radius:8px; min-height:100px;"></textarea>
-
-  <br><br>
-
-  <input type="tel" id="telefono" placeholder="Teléfono de contacto">
-
-  <br><br>
-
-  <button onclick="publicarOferta()">
-    📢 Publicar oferta
-  </button>
-
-  <p id="mensaje" style="margin-top:15px;"></p>
-</section>
-    <h2>📢 ¿Buscas trabajadores?</h2>
-    <p>Publica tu oferta y encuentra trabajadores cerca.</p>
-    <br>
-    <button onclick="alert('Próximamente podrás publicar ofertas de trabajo.')">
-      Publicar oferta
+    <button onclick="buscarOfertas()">
+      🔎 Buscar ofertas
     </button>
-  </section>
 
-  <footer>
-    <p>© 2026 TrabajoCerca</p>
-    <p>Encuentra trabajo. Encuentra trabajadores.</p>
-  </footer>
-function publicarOferta() {
+    <br><br>
 
-  const empresa = document.getElementById("empresa").value;
-  const puesto = document.getElementById("puesto").value;
-  const ciudad = document.getElementById("ciudad").value;
-  const salario = document.getElementById("salario").value;
-  const descripcion = document.getElementById("descripcion").value;
-  const telefono = document.getElementById("telefono").value;
+    <button
+      onclick="mostrarTodas()"
+      style="background:#6c757d;"
+    >
+      Ver todas las ofertas
+    </button>
 
-  if (!empresa || !puesto || !ciudad || !telefono) {
-    document.getElementById("mensaje").innerText =
-      "⚠️ Completa los campos obligatorios.";
-    return;
+  </div>
+
+
+  <!-- PUBLICAR OFERTA -->
+
+  <div class="caja">
+
+    <h2>📢 Publicar oferta</h2>
+
+    <p style="margin-bottom:15px;">
+      ¿Buscas trabajadores? Publica tu oferta.
+    </p>
+
+    <input
+      type="text"
+      id="empresa"
+      placeholder="🏢 Nombre de la empresa"
+    >
+
+    <input
+      type="text"
+      id="puesto"
+      placeholder="💼 Puesto de trabajo"
+    >
+
+    <input
+      type="text"
+      id="ciudad"
+      placeholder="📍 Ciudad"
+    >
+
+    <input
+      type="text"
+      id="salario"
+      placeholder="💰 Salario"
+    >
+
+    <textarea
+      id="descripcion"
+      placeholder="📝 Describe el trabajo"
+    ></textarea>
+
+    <input
+      type="tel"
+      id="telefono"
+      placeholder="📞 Teléfono de contacto"
+    >
+
+    <button
+      class="boton-verde"
+      onclick="publicarOferta()"
+    >
+      📢 Publicar oferta
+    </button>
+
+    <div id="mensaje"></div>
+
+  </div>
+
+
+  <!-- OFERTAS -->
+
+  <div>
+
+    <h2 style="margin-bottom:15px;">
+      💼 Ofertas de trabajo
+    </h2>
+
+    <div id="listaOfertas"></div>
+
+  </div>
+
+</div>
+
+
+<footer>
+
+  <p>© 2026 TrabajoCerca</p>
+
+  <p style="margin-top:7px;">
+    Encuentra trabajo. Encuentra trabajadores.
+  </p>
+
+</footer>
+
+
+<script>
+
+  // Cargar ofertas guardadas
+  let ofertas = JSON.parse(
+    localStorage.getItem("trabajocerca_ofertas")
+  ) || [];
+
+
+  // OFERTAS DE EJEMPLO
+
+  if (ofertas.length === 0) {
+
+    ofertas = [
+
+      {
+        id: 1,
+        empresa: "Empresa agrícola",
+        puesto: "Peón agrícola",
+        ciudad: "Lorca",
+        salario: "8 - 10 €/hora",
+        descripcion: "Se busca trabajador para tareas agrícolas.",
+        telefono: "600000000",
+        ejemplo: true
+      },
+
+      {
+        id: 2,
+        empresa: "Restaurante",
+        puesto: "Camarero/a",
+        ciudad: "Puerto Lumbreras",
+        salario: "1.300 - 1.600 €/mes",
+        descripcion: "Se busca camarero/a para restaurante.",
+        telefono: "600000000",
+        ejemplo: true
+      },
+
+      {
+        id: 3,
+        empresa: "Construcciones Murcia",
+        puesto: "Albañil",
+        ciudad: "Águilas",
+        salario: "Según experiencia",
+        descripcion: "Se busca albañil con experiencia.",
+        telefono: "600000000",
+        ejemplo: true
+      }
+
+    ];
+
   }
 
-  const nuevaOferta = document.createElement("div");
 
-  nuevaOferta.className = "oferta";
+  // MOSTRAR OFERTAS
 
-  nuevaOferta.innerHTML = `
-    <h3>💼 ${puesto}</h3>
-    <p>🏢 ${empresa}</p>
-    <p>📍 ${ciudad}</p>
-    <p>💰 ${salario}</p>
-    <p>${descripcion}</p>
+  function mostrarOfertas(lista = ofertas) {
 
-    <a class="contactar" href="tel:${telefono}">
-      📞 Contactar
-    </a>
-  `;
+    const contenedor =
+      document.getElementById("listaOfertas");
 
-  document.querySelector(".ofertas").prepend(nuevaOferta);
+    contenedor.innerHTML = "";
 
-  document.getElementById("mensaje").innerText =
-    "✅ ¡Oferta publicada correctamente!";
+    if (lista.length === 0) {
 
-  document.getElementById("empresa").value = "";
-  document.getElementById("puesto").value = "";
-  document.getElementById("ciudad").value = "";
-  document.getElementById("salario").value = "";
-  document.getElementById("descripcion").value = "";
-  document.getElementById("telefono").value = "";
-}
-  <script>
-    function buscarTrabajo() {
-      const trabajo = document.getElementById("trabajo").value.toLowerCase();
-      const ubicacion = document.getElementById("ubicacion").value.toLowerCase();
+      contenedor.innerHTML = `
+        <div class="caja sin-ofertas">
+          😕 No hemos encontrado ofertas.
+        </div>
+      `;
 
-      const ofertas = document.querySelectorAll(".oferta");
-
-      ofertas.forEach(oferta => {
-        const texto = oferta.innerText.toLowerCase();
-
-        if (texto.includes(trabajo) && texto.includes(ubicacion)) {
-          oferta.style.display = "block";
-        } else {
-          oferta.style.display = "none";
-        }
-      });
+      return;
     }
-  </script>
+
+
+    lista.forEach(oferta => {
+
+      const div = document.createElement("div");
+
+      div.className = "oferta";
+
+      div.innerHTML = `
+
+        <h3>💼 ${escapeHTML(oferta.puesto)}</h3>
+
+        <p>🏢 <strong>
+          ${escapeHTML(oferta.empresa)}
+        </strong></p>
+
+        <p>📍 ${escapeHTML(oferta.ciudad)}</p>
+
+        <p>💰 ${escapeHTML(oferta.salario || "No indicado")}</p>
+
+        <p>📝 ${escapeHTML(oferta.descripcion || "Sin descripción")}</p>
+
+        <a
+          class="contactar"
+          href="tel:${escapeHTML(oferta.telefono)}"
+        >
+          📞 Contactar
+        </a>
+
+        ${
+          oferta.ejemplo
+          ? ""
+          : `
+            <button
+              class="borrar"
+              onclick="borrarOferta(${oferta.id})"
+            >
+              🗑️ Borrar oferta
+            </button>
+          `
+        }
+
+      `;
+
+      contenedor.appendChild(div);
+
+    });
+
+  }
+
+
+  // PUBLICAR OFERTA
+
+  function publicarOferta() {
+
+    const empresa =
+      document.getElementById("empresa").value.trim();
+
+    const puesto =
+      document.getElementById("puesto").value.trim();
+
+    const ciudad =
+      document.getElementById("ciudad").value.trim();
+
+    const salario =
+      document.getElementById("salario").value.trim();
+
+    const descripcion =
+      document.getElementById("descripcion").value.trim();
+
+    const telefono =
+      document.getElementById("telefono").value.trim();
+
+    const mensaje =
+      document.getElementById("mensaje");
+
+
+    if (
+      empresa === "" ||
+      puesto === "" ||
+      ciudad === "" ||
+      telefono === ""
+    ) {
+
+      mensaje.innerHTML =
+        "⚠️ Completa empresa, puesto, ciudad y teléfono.";
+
+      mensaje.style.color = "#dc3545";
+
+      return;
+
+    }
+
+
+    const nuevaOferta = {
+
+      id: Date.now(),
+
+      empresa: empresa,
+
+      puesto: puesto,
+
+      ciudad: ciudad,
+
+      salario: salario,
+
+      descripcion: descripcion,
+
+      telefono: telefono,
+
+      ejemplo: false
+
+    };
+
+
+    ofertas.unshift(nuevaOferta);
+
+
+    guardarOfertas();
+
+    mostrarOfertas();
+
+
+    document.getElementById("empresa").value = "";
+
+    document.getElementById("puesto").value = "";
+
+    document.getElementById("ciudad").value = "";
+
+    document.getElementById("salario").value = "";
+
+    document.getElementById("descripcion").value = "";
+
+    document.getElementById("telefono").value = "";
+
+
+    mensaje.innerHTML =
+      "✅ ¡Oferta publicada correctamente!";
+
+    mensaje.style.color = "#198754";
+
+  }
+
+
+  // BUSCAR
+
+  function buscarOfertas() {
+
+    const puesto =
+      document
+        .getElementById("buscarPuesto")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const ciudad =
+      document
+        .getElementById("buscarCiudad")
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    const resultados = ofertas.filter(oferta => {
+
+      const textoPuesto =
+        oferta.puesto.toLowerCase();
+
+      const textoCiudad =
+        oferta.ciudad.toLowerCase();
+
+
+      const coincidePuesto =
+        puesto === "" ||
+        textoPuesto.includes(puesto);
+
+
+      const coincideCiudad =
+        ciudad === "" ||
+        textoCiudad.includes(ciudad);
+
+
+      return coincidePuesto && coincideCiudad;
+
+    });
+
+
+    mostrarOfertas(resultados);
+
+  }
+
+
+  // MOSTRAR TODAS
+
+  function mostrarTodas() {
+
+    document.getElementById("buscarPuesto").value = "";
+
+    document.getElementById("buscarCiudad").value = "";
+
+    mostrarOfertas();
+
+  }
+
+
+  // BORRAR OFERTA
+
+  function borrarOferta(id) {
+
+    const confirmar =
+      confirm("¿Quieres borrar esta oferta?");
+
+    if (!confirmar) {
+      return;
+    }
+
+
+    ofertas =
+      ofertas.filter(oferta => oferta.id !== id);
+
+
+    guardarOfertas();
+
+    mostrarOfertas();
+
+  }
+
+
+  // GUARDAR
+
+  function guardarOfertas() {
+
+    localStorage.setItem(
+      "trabajocerca_ofertas",
+      JSON.stringify(ofertas)
+    );
+
+  }
+
+
+  // SEGURIDAD BÁSICA PARA TEXTO INTRODUCIDO POR USUARIOS
+
+  function escapeHTML(texto) {
+
+    return String(texto)
+
+      .replace(/&/g, "&amp;")
+
+      .replace(/</g, "&lt;")
+
+      .replace(/>/g, "&gt;")
+
+      .replace(/"/g, "&quot;")
+
+      .replace(/'/g, "&#039;");
+
+  }
+
+
+  // MOSTRAR AL ABRIR LA PÁGINA
+
+  mostrarOfertas();
+
+</script>
 
 </body>
 </html>
