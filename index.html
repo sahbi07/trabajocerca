@@ -30,10 +30,6 @@
       margin-bottom: 8px;
     }
 
-    header p {
-      font-size: 16px;
-    }
-
     .container {
       max-width: 700px;
       margin: 25px auto;
@@ -72,6 +68,10 @@
       cursor: pointer;
     }
 
+    button:hover {
+      background: #09643e;
+    }
+
     .job {
       background: white;
       padding: 20px;
@@ -98,6 +98,12 @@
       font-size: 13px;
       margin-top: 8px;
     }
+
+    #mensaje {
+      text-align: center;
+      margin: 20px 0;
+      color: #666;
+    }
   </style>
 </head>
 
@@ -113,44 +119,96 @@
   <div class="search">
     <h2>🔎 Buscar trabajo</h2>
 
-    <input type="text" placeholder="¿Qué trabajo buscas?">
+    <input id="trabajo" type="text" placeholder="¿Qué trabajo buscas?">
 
-    <input type="text" placeholder="📍 Localidad">
+    <input id="localidad" type="text" placeholder="📍 Localidad">
 
-    <select>
+    <select id="sector">
       <option value="">Todos los sectores</option>
-      <option>Agricultura</option>
-      <option>Almacén</option>
-      <option>Construcción</option>
-      <option>Hostelería</option>
-      <option>Limpieza</option>
-      <option>Otros</option>
+      <option value="agricultura">Agricultura</option>
+      <option value="almacén">Almacén</option>
+      <option value="construcción">Construcción</option>
+      <option value="hostelería">Hostelería</option>
+      <option value="limpieza">Limpieza</option>
     </select>
 
-    <button>Buscar ofertas</button>
+    <button onclick="buscarOfertas()">Buscar ofertas</button>
   </div>
 
   <h2>Últimas ofertas</h2>
 
   <br>
 
-  <div class="job">
-    <h3>👨‍🌾 Trabajador agrícola</h3>
-    <p>📍 Lorca, Murcia</p>
-    <p>💰 8,50 €/hora</p>
-    <p>🕐 Jornada completa</p>
-    <span class="badge">Agricultura</span>
+  <div id="ofertas">
+
+    <div class="job" data-trabajo="trabajador agrícola" data-localidad="lorca murcia" data-sector="agricultura">
+      <h3>👨‍🌾 Trabajador agrícola</h3>
+      <p>📍 Lorca, Murcia</p>
+      <p>💰 8,50 €/hora</p>
+      <p>🕐 Jornada completa</p>
+      <span class="badge">Agricultura</span>
+    </div>
+
+    <div class="job" data-trabajo="mozo de almacén" data-localidad="puerto lumbreras murcia" data-sector="almacén">
+      <h3>📦 Mozo de almacén</h3>
+      <p>📍 Puerto Lumbreras, Murcia</p>
+      <p>💰 1.300 €/mes</p>
+      <p>🕐 Jornada completa</p>
+      <span class="badge">Almacén</span>
+    </div>
+
   </div>
 
-  <div class="job">
-    <h3>📦 Mozo de almacén</h3>
-    <p>📍 Puerto Lumbreras, Murcia</p>
-    <p>💰 1.300 €/mes</p>
-    <p>🕐 Jornada completa</p>
-    <span class="badge">Almacén</span>
-  </div>
+  <p id="mensaje"></p>
 
 </div>
+
+<script>
+
+function buscarOfertas() {
+
+  const trabajo = document.getElementById("trabajo").value.toLowerCase().trim();
+  const localidad = document.getElementById("localidad").value.toLowerCase().trim();
+  const sector = document.getElementById("sector").value.toLowerCase();
+
+  const ofertas = document.querySelectorAll(".job");
+
+  let encontradas = 0;
+
+  ofertas.forEach(function(oferta) {
+
+    const textoTrabajo = oferta.dataset.trabajo;
+    const textoLocalidad = oferta.dataset.localidad;
+    const textoSector = oferta.dataset.sector;
+
+    const coincideTrabajo =
+      trabajo === "" || textoTrabajo.includes(trabajo);
+
+    const coincideLocalidad =
+      localidad === "" || textoLocalidad.includes(localidad);
+
+    const coincideSector =
+      sector === "" || textoSector === sector;
+
+    if (coincideTrabajo && coincideLocalidad && coincideSector) {
+      oferta.style.display = "block";
+      encontradas++;
+    } else {
+      oferta.style.display = "none";
+    }
+
+  });
+
+  const mensaje = document.getElementById("mensaje");
+
+  if (encontradas === 0) {
+    mensaje.textContent = "❌ No hemos encontrado ofertas con esos filtros.";
+  } else {
+    mensaje.textContent = "✅ " + encontradas + " oferta(s) encontrada(s).";
+  }
+}
+
+</script>
 
 </body>
 </html>
