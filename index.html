@@ -204,6 +204,42 @@
   </section>
 
   <section class="publicar">
+  <h2>📢 Publicar oferta de trabajo</h2>
+  <p>¿Buscas trabajadores? Publica tu oferta gratis.</p>
+
+  <br>
+
+  <input type="text" id="empresa" placeholder="Nombre de la empresa">
+
+  <br><br>
+
+  <input type="text" id="puesto" placeholder="Puesto (ej: Camarero)">
+
+  <br><br>
+
+  <input type="text" id="ciudad" placeholder="Ciudad">
+
+  <br><br>
+
+  <input type="text" id="salario" placeholder="Salario">
+
+  <br><br>
+
+  <textarea id="descripcion" placeholder="Describe el trabajo"
+    style="width:100%; padding:13px; border:1px solid #ddd; border-radius:8px; min-height:100px;"></textarea>
+
+  <br><br>
+
+  <input type="tel" id="telefono" placeholder="Teléfono de contacto">
+
+  <br><br>
+
+  <button onclick="publicarOferta()">
+    📢 Publicar oferta
+  </button>
+
+  <p id="mensaje" style="margin-top:15px;"></p>
+</section>
     <h2>📢 ¿Buscas trabajadores?</h2>
     <p>Publica tu oferta y encuentra trabajadores cerca.</p>
     <br>
@@ -216,7 +252,49 @@
     <p>© 2026 TrabajoCerca</p>
     <p>Encuentra trabajo. Encuentra trabajadores.</p>
   </footer>
+function publicarOferta() {
 
+  const empresa = document.getElementById("empresa").value;
+  const puesto = document.getElementById("puesto").value;
+  const ciudad = document.getElementById("ciudad").value;
+  const salario = document.getElementById("salario").value;
+  const descripcion = document.getElementById("descripcion").value;
+  const telefono = document.getElementById("telefono").value;
+
+  if (!empresa || !puesto || !ciudad || !telefono) {
+    document.getElementById("mensaje").innerText =
+      "⚠️ Completa los campos obligatorios.";
+    return;
+  }
+
+  const nuevaOferta = document.createElement("div");
+
+  nuevaOferta.className = "oferta";
+
+  nuevaOferta.innerHTML = `
+    <h3>💼 ${puesto}</h3>
+    <p>🏢 ${empresa}</p>
+    <p>📍 ${ciudad}</p>
+    <p>💰 ${salario}</p>
+    <p>${descripcion}</p>
+
+    <a class="contactar" href="tel:${telefono}">
+      📞 Contactar
+    </a>
+  `;
+
+  document.querySelector(".ofertas").prepend(nuevaOferta);
+
+  document.getElementById("mensaje").innerText =
+    "✅ ¡Oferta publicada correctamente!";
+
+  document.getElementById("empresa").value = "";
+  document.getElementById("puesto").value = "";
+  document.getElementById("ciudad").value = "";
+  document.getElementById("salario").value = "";
+  document.getElementById("descripcion").value = "";
+  document.getElementById("telefono").value = "";
+}
   <script>
     function buscarTrabajo() {
       const trabajo = document.getElementById("trabajo").value.toLowerCase();
